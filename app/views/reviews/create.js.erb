@@ -1,0 +1,29 @@
+console.log("Hello from reviews/create.js.erb")
+
+function addReview(reviewHTML) {
+  // 1. get list in which we need to add the review
+  var list = document.getElementById("reviews");
+  // 3. insert the review in the list
+  list.insertAdjacentHTML("afterbegin", reviewHTML)
+}
+
+function resetForm(formHTML) {
+  var form = document.getElementById("new_review");
+  form.innerHTML = formHTML;
+}
+
+
+
+<% if @review.errors.any? %>
+  // 4. reset the form
+  var newForm = "<%= j render 'reviews/form', restaurant: @restaurant, review: @review %>"
+  resetForm(newForm);
+<% else %>
+  // 2. store the review content in a variable @review
+  var reviewHTML = "<%= j render 'reviews/review_card', review: @review %>"
+  addReview(reviewHTML);
+
+  // 4. reset the form
+  var newForm = "<%= j render 'reviews/form', restaurant: @restaurant, review: Review.new %>"
+  resetForm(newForm);
+<% end %>

@@ -1,0 +1,22 @@
+
+<div class="container">
+  <img src="http://kitt.lewagon.com/placeholder/cities/random" alt="">
+  <h1><%= @restaurant.name %> <small><%= @restaurant.address %></small></h1>
+  <h2>
+    <%= pluralize @restaurant.reviews.length, "review" %>
+  </h2>
+
+  <%= render "reviews/form", restaurant: @restaurant, review: @review %>
+
+
+  <div id="reviews">
+    <% if @restaurant.reviews.blank? %>
+      Be the first to leave a review for <%= @restaurant.name %>
+    <% else %>
+      <% @restaurant.reviews.reverse.each do |review| %>
+        <%= render 'reviews/review_card', review: review %>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>
